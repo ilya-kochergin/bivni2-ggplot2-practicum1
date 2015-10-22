@@ -23,8 +23,9 @@ film_death_counts$death_per_minute <-
 film_death_counts$TitleAndYear <- sprintf("%s (%s)",
   film_death_counts$Film,film_death_counts$Year)
 
-reordered_data <-  film_death_counts[order(film_death_counts$death_per_minute,
+top20 <-  film_death_counts[order(film_death_counts$death_per_minute,
                                                  decreasing = TRUE)[1:20],]
+top20$TitleAndYear <-  reorder(top20$TitleAndYear,top20$death_per_minute)
 
-ggplot(data=reordered_data,aes(x=TitleAndYear,y=death_per_minute,fill=MPAA_Rating),ordered=T) + coord_flip()+ geom_bar(stat="identity",position = "dodge")
-View(reordered_data)
+ggplot(data=top20,aes(x=TitleAndYear,y=death_per_minute,fill=MPAA_Rating),ordered=T) +
+   coord_flip()+ geom_bar(stat="identity")
