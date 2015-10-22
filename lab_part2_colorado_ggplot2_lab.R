@@ -28,4 +28,7 @@ top20 <-  film_death_counts[order(film_death_counts$death_per_minute,
 top20$TitleAndYear <-  reorder(top20$TitleAndYear,top20$death_per_minute)
 
 ggplot(data=top20,aes(x=TitleAndYear,y=death_per_minute,fill=MPAA_Rating),ordered=T) +
-   coord_flip()+ geom_bar(stat="identity")
+   coord_flip()+ geom_bar(stat="identity") + 
+  xlab("Film title and year")+ ylab("Смертей в секунду")
+# device cairo_pdf correctly work with russian letter
+ggsave(filename = "plot4.pdf",device=cairo_pdf)
